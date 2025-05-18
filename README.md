@@ -248,6 +248,7 @@ Pedrosa, F. G. (2025). song_sent_scores: Functions for multimodal song circumple
 
 ### Reference
 Russell, J. A. (1980). A circumplex model of affect. Journal of Personality and Social Psychology, 39(6), 1161–1178. https://doi.org/10.1037/h0077714
+
 Tomasevic A, Golino H, Christensen A (2024). “Decoding emotion dynamics in videos using dynamic Exploratory Graph Analysis and zero-shot image classification: A simulation and tutorial using the transforEmotion R package.” _PsyArXiv_. doi:10.31234/osf.io/hf3g7 <https://doi.org/10.31234/osf.io/hf3g7>, <https://osf.io/preprints/psyarxiv/hf3g7>.
 
 ## License

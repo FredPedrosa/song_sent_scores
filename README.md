@@ -10,6 +10,77 @@ This repository provides tools for multimodal song sentiment analysis based on R
 
 The tools estimate Valence (Negative/Positive) and Arousal (Low/High) scores for both audio and text modalities, allowing for a dynamic analysis of sentiment throughout a song.
 
+The core components are as follows:
+
+1.  **Input Audio:** The toolkit takes a song audio file (e.g., MP3, WAV) as input. This audio is used for both direct sonic analysis and, if lyrics are not provided, for ASR.
+
+2.  **Audio Affective Analysis (CLAP):** The raw audio signal is processed by a Contrastive Language-Audio Pretraining (CLAP) model. This model generates embeddings of the audio segments and performs zero-shot classification against predefined textual descriptions of affective states (e.g., 'audio with positive valence', 'audio with high arousal') to infer Valence and Arousal scores directly from the sonic characteristics. This results in the *Audio V/A Scores*.
+
+3.  **Lyrical Content Processing:**
+    *   **Optional Provided Lyrics:** Users can directly supply the song lyrics.
+    *   **Automatic Speech Recognition (ASR):** If lyrics are not provided, the input audio is fed into an ASR model (e.g., OpenAI's Whisper) to generate *Transcribed Text*.
+
+4.  **Text Affective Analysis (NLI):** The obtained lyrical content (either provided or transcribed) is then analyzed by a Natural Language Inference (NLI) based zero-shot text classification model. This model assesses the interaction between lyrics and phrases representing different Valence and Arousal states to produce the *Text V/A Scores*.
+
+5.  **Output Aggregation:** The derived *Audio V/A Scores* and *Text V/A Scores* are compiled into an output dictionary, typically structured with separate entries for 'audio' and 'text' modalities, each containing their respective valence and arousal values.
+
+6.  **Visualization:** Finally, these scores are mapped as coordinates onto a 2D circumplex plot. This plot visually represents the song segment's position in the Valence-Arousal space, with distinct points for the audio and text modalities, allowing for an intuitive understanding of the song's multimodal affective profile.
+
+This pipeline allows `song_sent_scores` to offer a comprehensive, multimodal assessment of a song's perceived emotional character, moving beyond unimodal analysis or simplistic discrete emotion labels.
+
+```mermaid
+%%{init: {
+  "theme": "default",
+  "themeVariables": {
+    "primaryTextColor": "#000000",
+    "lineColor": "#333333",
+    "fontSize": "16px"
+  }
+}}%%
+
+graph TD
+    A["Input Audio
+(e.g., song.mp3)"] --> B["CLAP Model
+(Audio to V/A Scores)"];
+    B --> C["Audio V/A Scores"];
+
+    D["Optional:
+Provided Lyrics"];
+    E["ASR Model
+(e.g., Whisper)"];
+    F["Transcribed Text"];
+    G["NLI Sentiment Model
+(Text to V/A Scores)"];
+    H["Text V/A Scores"];
+
+    D -- "If lyrics provided" --> G;
+    A -- "If no lyrics, for ASR" --> E;
+    E --> F;
+    F -- "If ASR used" --> G;
+    
+    G --> H;
+
+    C --> I["Output Dictionary:
+{'audio': {valence, arousal},
+ 'text':  {valence, arousal}}"];
+    H --> I;
+    
+    I --> J["Visualization:
+Circumplex Plot
+(2D space: valence x arousal)
+- Audio point
+- Text point"];
+
+    %% Aplicando classes aos nós
+    class A,D,E,F,I,J default;
+    class B,G model;
+    class C,H scores;
+
+    %% Definições de classe para cores (versão para tema claro)
+    classDef default fill:#DDEFFD,stroke:#333333,stroke-width:1px,color:#000000;
+    classDef model fill:#C9D4F9,stroke:#333333,stroke-width:1px,color:#000000;
+    classDef scores fill:#D4F9D8,stroke:#333333,stroke-width:1px,color:#000000;
+```
 ---
 
 ## R Implementation

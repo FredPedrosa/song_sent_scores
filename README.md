@@ -310,7 +310,7 @@ Open in Google Colab or a local Jupyter environment with prerequisites installed
 
 ### How to Cite
 
-Pedrosa, F. G. (2025). song_sent_scores: Functions for multimodal song circumplex analysis in R and Python. [Software]. Retrieved from https://github.com/FredPedrosa/song_sent_scores
+Pedrosa, F. G. (2025). song_sent_scores: Functions for multimodal song circumplex analysis in R and Python. [Software]. https://doi.org/10.5281/zenodo.18481612. Retrieved from https://github.com/FredPedrosa/song_sent_scores
 
 ## Author
 
